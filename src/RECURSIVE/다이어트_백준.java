@@ -1,3 +1,5 @@
+// https://www.acmicpc.net/problem/19942
+
 package RECURSIVE;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -57,6 +59,8 @@ public class 다이어트_백준{
 		}
 		
 		Collections.sort(result2);
+		
+		// -1와 마지막 띄어쓰기  처리를 안해줘서 처음에 틀렸습니다 떴음 
 		if(result2.size()==0) {
 			System.out.println(-1);
 			
@@ -89,20 +93,28 @@ public class 다이어트_백준{
 			}
 		}
 		
-		
-		if(idx==N) {
-//			// 아무것도 선택하지 않은 경우 
-//			boolean flag=false;
-//			for (int i = 0; i < use.length; i++) {
-//				flag = use[i];
-//			}
-//			if(!flag) {
-//				return;
-//			}
-//			
+		if(idx==N) {			
 			return;
 		}
 		
+		
+		/*
+		이전 코드
+		
+		if(idx==N) {
+			if(protein>=minArr[0] && fat>=minArr[1] && kcal>=minArr[2] && vita>=minArr[3]) {
+				if(price < answer) {
+					answer = price;
+					for (int i = 0; i < use.length; i++) {
+						result[i] = use[i];
+					}
+				}
+			}	
+			return;
+		}
+		
+		
+		 */
 		
 
 		// inductive
@@ -111,9 +123,6 @@ public class 다이어트_백준{
 		use[idx]= true;
 		recursive(idx+1, protein+arr[idx][0], fat+arr[idx][1], kcal+arr[idx][2], vita+arr[idx][3], price+arr[idx][4], use);
 		use[idx]= false;
-
-		
-		
 		
 		// 사용하지 않았을 경우 
 		recursive(idx+1, protein, fat, kcal, vita, price, use);
@@ -140,3 +149,38 @@ public class 다이어트_백준{
 
 }
 
+
+
+/*
+input 
+
+2
+0 0 0 10
+0 0 0 10 1
+0 0 0 5 0
+
+output
+1
+1
+
+input
+6
+100 70 90 10
+30 55 10 8 100
+60 10 10 2 70
+10 80 50 0 50
+40 30 30 8 60
+60 10 70 2 120
+20 70 50 4 4
+
+output
+134
+2 4 6
+
+
+
+
+
+
+
+*/
